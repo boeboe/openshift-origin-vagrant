@@ -40,7 +40,7 @@ Two ansible playbooks will start on admin1 after it has booted. The first playbo
 The install comprises one master and three nodes. The NFS share gets created on admin1.
 
 | VM Name   | Memory  | Cores  | IP             | DNS                  |
-| --------- |:-------:| ------:| --------------:| --------------------:|
+| --------- |:-------:|:------:|:--------------:|:--------------------:|
 | admin1    | 1GB     | 1      | 192.168.50.24  | admin1.example.com   |
 | master1   | 4GB     | 2      | 192.168.50.20  | master1.example.com  |
 | node1     | 2GB     | 1      | 192.168.50.21  | node1.example.com    |
