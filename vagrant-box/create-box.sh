@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Small helper script to quickly generate new centos/7 based VirtualBox Guest Addition enabled boxes
+# Small helper script to quickly generate new centos/7 based VBoxGuestAdditions enabled boxes
 #
 
 GREEN='\033[1;32m'
@@ -38,20 +38,21 @@ if [ -z "$1" ]; then
 else
     export VB_VERSION=$1
     check_vb_version ${VB_VERSION}
-    echo -e "${GREEN}Going to create a new centos/7 box with VirtualBox Guest Addition version ${VB_VERSION}${NC}"
+    echo -e "${GREEN}Going to create a new centos/7 box with VBoxGuestAdditions version ${VB_VERSION}${NC}"
 fi
 
 
 ${VAGRANT_BIN} destroy -f
 rm -rf ./.vagrant
 
-echo -e "${GREEN}Starting up vagrant box ${NC}"
+echo -e "${GREEN}Starting up vagrant box${NC}"
 ${VAGRANT_BIN} up
 
 wait_for_box
 
 echo -e "${GREEN}Updating kernel and other packages${NC}"
 ${VAGRANT_EXEC} "sudo yum -y update"
+echo -e "${GREEN}Installing prerequisites for VBoxGuestAdditions${NC}"
 ${VAGRANT_EXEC} "sudo yum -y install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel \
                     kernel-headers"
 ${VAGRANT_EXEC} "sudo init 6"
@@ -59,7 +60,7 @@ ${VAGRANT_EXEC} "sudo init 6"
 sleep 2
 wait_for_box
 
-echo -e "${GREEN}Installing VirtualBox Guest Additions version ${VB_VERSION}${NC}"
+echo -e "${GREEN}Installing VBoxGuestAdditions version ${VB_VERSION}${NC}"
 ${VAGRANT_EXEC} "curl ${VB_URL}/${VB_VERSION}/VBoxGuestAdditions_${VB_VERSION}.iso  -o /tmp/VBoxGuestAdditions_${VB_VERSION}.iso"
 ${VAGRANT_EXEC} "sudo mount /tmp/VBoxGuestAdditions_${VB_VERSION}.iso -o loop /mnt"
 ${VAGRANT_EXEC} "sudo sh /mnt/VBoxLinuxAdditions.run --nox11"
@@ -74,6 +75,8 @@ ${VAGRANT_EXEC} "sudo yum remove -y gcc glibc-devel glibc-headers kernel-devel k
                     perl-constant perl-libs perl-macros perl-parent perl-podlators perl-threads perl-threads-shared"
 ${VAGRANT_EXEC} "sudo yum clean all"
 ${VAGRANT_EXEC} "sudo rm -rf /var/cache/yum"
+
+echo -e "${GREEN}Fill hard disk with zero's for better compression ratio${NC}"
 ${VAGRANT_EXEC} "sudo dd if=/dev/zero of=/EMPTY bs=1M"
 ${VAGRANT_EXEC} "sudo rm -f /EMPTY"
 ${VAGRANT_EXEC} "cat /dev/null > ~/.bash_history && history -c && exit"
