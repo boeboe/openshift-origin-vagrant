@@ -37,14 +37,6 @@ if sync_type == ''
   end
 end
 
-
-#box_name = 'centos/7'
-box = 'boeboe/centos7-vbguest'
-box_version = '5.2.6'
-
-NETWORK_BASE = '192.168.50'
-INTEGRATION_START_SEGMENT = 20
-
 def quote_labels(labels)
     # Quoting logic for ansible host_vars has changed in Vagrant 2.0
     # See: https://github.com/hashicorp/vagrant/commit/ac75e409a3470897d56a0841a575e981d60e2e3d
@@ -54,6 +46,22 @@ def quote_labels(labels)
       return '"{' + labels.map{|k, v| "'#{k}': '#{v}'"}.join(', ') + '}"'
     end
 end
+
+def virtualbox_version()
+  vboxmanage = Vagrant::Util::Which.which("VBoxManage") || Vagrant::Util::Which.which("VBoxManage.exe")
+  if vboxmanage != nil
+      s = Vagrant::Util::Subprocess.execute(vboxmanage, '--version')
+      return s.stdout.strip!.split("r")[0]
+  else
+      return nil
+  end
+end
+
+box = 'boeboe/centos7-vbguest'
+box_version = virtualbox_version() || '5.2.6'
+
+NETWORK_BASE = '192.168.50'
+INTEGRATION_START_SEGMENT = 20
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
