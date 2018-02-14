@@ -27,7 +27,7 @@ such a box based on centos/7 for VirtualBox version 5.2.6. Feel free to submit a
 
 https://app.vagrantup.com/boeboe/boxes/centos7-vbguest/versions/5.2.6
 
-*NOTE:* You can create your own box by using a helper script located at _vagrant-box/create-box.sh_
+**NOTE:** You can create your own box by using a helper script located at _vagrant-box/create-box.sh_
 
 Installation
 ------------
