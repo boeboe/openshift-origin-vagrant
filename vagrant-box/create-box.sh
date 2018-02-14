@@ -83,4 +83,5 @@ ${VAGRANT_EXEC} "cat /dev/null > ~/.bash_history && history -c && exit"
 
 echo -e "${GREEN}Packaging resulting VM as a new box${NC}"
 ${VAGRANT_BIN} package --output output/centos7-vbguest-${VB_VERSION}.box
+ls -la output/
 echo -e "${GREEN}Successfully created a new box: output/centos7-vbguest-${VB_VERSION}.box${NC}"
