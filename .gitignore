@@ -1,5 +1,7 @@
 ## Vagrant ##
 .vagrant
+vagrant-box/output
+vagrant-box/.vagrant
 
 ## IntelliJ ##
 .idea
