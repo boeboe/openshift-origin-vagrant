@@ -29,6 +29,9 @@ https://app.vagrantup.com/boeboe/boxes/centos7-vbguest/versions/5.2.6
 
 **NOTE:** You can create your own box by using a helper script located at _vagrant-box/create-box.sh_
 
+    cd vagrant-box
+    ./create-box.sh 5.2.4
+
 Installation
 ------------
 
