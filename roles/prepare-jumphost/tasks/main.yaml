@@ -1,0 +1,35 @@
+---
+- name: Make sure git is available
+  package:
+    name: git
+    state: present
+
+- name: Checkout openshift-ansiblle git repository
+  git:
+    repo: https://github.com/openshift/openshift-ansible
+    dest: ~/openshift-ansible
+    force: yes
+    update: yes
+    version: release-3.7
+  become: yes
+  become_user: vagrant
+
+- name: Make sure latest EPEL repo is present
+  package:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: Enable EPEL repo
+  replace:
+    dest: /etc/yum.repos.d/epel.repo
+    regexp: '^enabled=1'
+    replace: 'enabled=0'
+
+- name: Install ansible and pyOpenSSL
+  yum:
+    name: "{{ item }}"
+    enablerepo: epel
+    state: present
+  with_items:
+  - ansible
+  - pyOpenSSL

@@ -1,0 +1,25 @@
+---
+- name: Install base package
+  yum:
+    name: "{{item}}"
+  with_items:
+    - docker
+    - python-setuptools
+    - wget
+    - git
+    - net-tools
+    - bind-utils
+    - iptables-services
+    - bridge-utils
+    - bash-completion
+    - kexec-tools
+    - sos
+    - psacct
+
+
+- name: Start and enable docker service
+  systemd:
+    name: docker.service
+    enabled: true
+    state: started
+

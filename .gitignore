@@ -1,0 +1,6 @@
+## Vagrant ##
+.vagrant
+
+## IntelliJ ##
+.idea
+*.iml

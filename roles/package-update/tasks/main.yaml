@@ -1,0 +1,9 @@
+#
+# update and upgrade yum packages
+#
+
+- name: Update and upgrade yum packages
+  yum: 
+    name: '*'
+    state: latest
+    exclude: kernel*

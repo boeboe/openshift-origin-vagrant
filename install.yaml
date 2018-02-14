@@ -1,0 +1,32 @@
+---
+- name: Configure ssh keys
+  hosts: localhost
+  tasks:
+    - command: find /home/vagrant/sync/.vagrant/machines -name private_key
+      register: private_keys
+
+    - file:
+        src: "{{ item }}"
+        dest: "/home/vagrant/.ssh/{{ item | regex_replace('^.*/machines/([^/]*)/.*', '\\1') }}.key"
+        state: link
+      with_items: "{{ private_keys.stdout_lines }}"
+
+
+- name: Prepare jumphost
+  hosts: admin1
+  roles:
+    - prepare-jumphost
+
+
+- name: Install base packages on all nodes
+  hosts: nodes
+  become: true
+  roles:
+    - prepare-node
+
+
+- name: Update all nodes
+  hosts: all
+  become: true
+  roles:
+    - package-update
