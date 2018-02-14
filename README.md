@@ -39,6 +39,14 @@ Two ansible playbooks will start on admin1 after it has booted. The first playbo
 
 The install comprises one master and three nodes. The NFS share gets created on admin1.
 
+| VM Name   | Memory  | Cores  | IP             | DNS                  |
+| --------- |:-------:| ------:| --------------:| --------------------:|
+| admin1    | 1GB     | 1      | 192.168.50.24  | admin1.example.com   |
+| master1   | 4GB     | 2      | 192.168.50.20  | master1.example.com  |
+| node1     | 2GB     | 1      | 192.168.50.21  | node1.example.com    |
+| node2     | 2GB     | 1      | 192.168.50.22  | node2.example.com    |
+| node3     | 2GB     | 1      | 192.168.50.23  | node3.example.com    |
+
 The inventory makes use of the 'openshift_ip' property to force the use of the eth1 network interface which is using the 192.168.50.x ip addresses of the vagrant private network.
 
 Once complete AND after confirming that the docker-registry pod is up and running then
