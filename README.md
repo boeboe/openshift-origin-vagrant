@@ -33,9 +33,6 @@ Installation
 
     git clone https://github.com/boeboe/openshift-origin-vagrant.git
     cd openshift-origin-vagrant
-
-then for an Origin install
-
     vagrant up
 
 Two ansible playbooks will start on admin1 after it has booted. The first playbook bootstraps the pre-requisites for the Openshift install. The second playbook is the actual Openshift install. The inventory for the Openshift install is declared inline in the Vagrantfile.
